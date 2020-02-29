@@ -1,0 +1,1 @@
+/home/code/wall_vue/dist/index.html
