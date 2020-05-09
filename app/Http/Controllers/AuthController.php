@@ -20,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'me']]);
     }
 
     public function register(Request $request) {
@@ -36,7 +36,7 @@ class AuthController extends Controller
                 [
                     'code' => 400,
                     'message' => 'request fail'
-                ]
+                ], 400
             );
         }
 
@@ -87,7 +87,25 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        // 确定当前用户是否已经认证
+        if (Auth::check()) {
+            // 获取当前通过认证的用户...
+            $user = Auth::user();
+
+            //  获取当前通过认证的用户 ID...
+            $id = Auth::id();
+
+
+            return response()->json([
+                "logined" => true,
+                "user" => auth()->user()
+            ]);
+        } else {
+            return response()->json([
+                "logined" => false,
+            ]);
+        }
+
     }
 
     /**
