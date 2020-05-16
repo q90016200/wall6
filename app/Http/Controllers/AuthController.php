@@ -77,6 +77,8 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        // return Auth::user();
+
         return $this->respondWithToken($token);
     }
 
@@ -85,8 +87,12 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
-    {
+    public function me() {
+
+
+        //   return response()->json([
+        //         "error" => "token fail"
+        //     ], 401);
         // 确定当前用户是否已经认证
         if (Auth::check()) {
             // 获取当前通过认证的用户...
@@ -97,13 +103,12 @@ class AuthController extends Controller
 
 
             return response()->json([
-                "logined" => true,
                 "user" => auth()->user()
             ]);
         } else {
             return response()->json([
-                "logined" => false,
-            ]);
+                "error" => "token fail"
+            ], 401);
         }
 
     }
@@ -113,16 +118,19 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
-    {
-        auth()->logout();
+    public function logout() {
+        if (Auth::check()) {
+            auth()->logout();
 
-        return response()->json(
-            [
-                'code' => 0,
-                'message' => 'Successfully logged out'
-            ]
-        );
+            return response()->json(
+                [
+                    'code' => 0,
+                    'message' => 'Success logged out'
+                ]
+            );
+        } else {
+            return response("", 401);
+        }
     }
 
     /**
@@ -134,7 +142,6 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token) {
         return response()->json([
-            "code" => 0,
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
