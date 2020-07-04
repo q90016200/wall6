@@ -50,6 +50,10 @@ PUSHER_APP_CLUSTER=mt1
 MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
 MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
+LINE_NOTIFY_CLIENT_ID=
+LINE_NOTIFY_SECRET_KEY=
+LINE_NOTIFY_CALLBACK_URL=http://localhost/api/lineNotify/callback
+
 ```
 
 **local nginx config**
@@ -93,6 +97,3 @@ I have included a helper command to generate a key for you:
 php artisan jwt:secret
 ```
 
-LINE_NOTIFY_CLIENT_ID=
-LINE_NOTIFY_SECRET_KEY=
-LINE_NOTIFY_CALLBACK_URL=http://localhost/api/lineNotify/callback
