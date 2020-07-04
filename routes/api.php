@@ -22,4 +22,15 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+    
+});
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'lineNotify'
+], function () {
+    Route::get('auth', 'LineNotifyController@auth');
+    Route::post('callback', 'LineNotifyController@callback');
+    Route::post('message', 'LineNotifyController@message');
 });

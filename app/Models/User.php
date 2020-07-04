@@ -58,5 +58,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * 獲取 line notify access token
+     */
+    public function social()
+    {
+        return $this->hasOne('App\Models\UserSocial');
+    }
+
 }
 

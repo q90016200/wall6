@@ -107,7 +107,7 @@ class AuthController extends Controller
             ]);
         } else {
             return response()->json([
-                "error" => "token fail"
+                "error" => "authorization fail"
             ], 401);
         }
 
@@ -131,6 +131,15 @@ class AuthController extends Controller
         } else {
             return response("", 401);
         }
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh() {
+        return $this->respondWithToken(auth()->refresh());
     }
 
     /**
