@@ -92,3 +92,7 @@ I have included a helper command to generate a key for you:
 ```
 php artisan jwt:secret
 ```
+
+LINE_NOTIFY_CLIENT_ID=
+LINE_NOTIFY_SECRET_KEY=
+LINE_NOTIFY_CALLBACK_URL=http://localhost/api/lineNotify/callback
